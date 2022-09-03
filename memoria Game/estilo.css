@@ -1,0 +1,18 @@
+h1{
+    text-align: center;
+}
+.col{
+    display:grid;
+    grid-template-columns: 100px;
+    grid-template-rows: 100px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    margin: 50px;
+}
+
+.col{
+    background-color: #ffd400;
+    border-radius: 10px;
+    font-size: 2em;
+}
