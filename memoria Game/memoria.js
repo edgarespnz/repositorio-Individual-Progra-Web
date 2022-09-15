@@ -1,8 +1,9 @@
 let board;
 let tarjetasMostradas = 0;
 let arregloSelecciones = []
+let arregloMostradas = []
 
-function createBoard(numRows,numCols){
+function createBoard(numRows,numCols){ 
     randomEmoji()
     let rows = []
     for(let i = 0; i< numRows;i++){
@@ -77,8 +78,8 @@ function randomEmoji(){
     "&#127772;",
     "&#127773;",
     "&#127774;",
-    
 ]
+
     arrayEmojis.sort(() =>{
         return Math.random()-0.5
     })
@@ -86,9 +87,10 @@ function randomEmoji(){
 
 const casillaOnClick = (row, col) =>{
     vacio = []
+        
+    if(arregloSelecciones.length<2){
         const casilla = getValue(board,row,col)
         casilla.seMuestra = true;
-    if(arregloSelecciones.length<2){
         arregloSelecciones.push(casilla)
         renderizarBoard(board)
     }
@@ -96,32 +98,42 @@ const casillaOnClick = (row, col) =>{
         setTimeout(compararCasillas,100)
     }
     setTimeout(mensajeGanaste,100)
-    console.log(tarjetasMostradas)
 }
 
 const compararCasillas =()=>{
     vacio = []
-        if(arregloSelecciones[0].emoji == arregloSelecciones[1].emoji){
+        if(arregloSelecciones[0].emoji == arregloSelecciones[1].emoji && arregloSelecciones[0] != arregloSelecciones[1]){
             alert("Bien, acertaste")
             arregloSelecciones[0].seMuestra = true;
             arregloSelecciones[1].seMuestra = true;
+            arregloMostradas.push(arregloSelecciones[0])
+            arregloMostradas.push(arregloSelecciones[1])
             arregloSelecciones = vacio
             renderizarBoard(board)
             tarjetasMostradas++
         }
         else{
-            console.log(arregloSelecciones)
             alert("te equivocaste, intenta otra vez");
             arregloSelecciones[0].seMuestra = false;
             arregloSelecciones[1].seMuestra = false;
             arregloSelecciones = vacio
             renderizarBoard(board)
         }
-    
+    estaMostrada()
+    setTimeout(mensajeGanaste,100)
+}
+
+const estaMostrada = () =>{
+    if(arregloMostradas.length != 0){
+        for(i in arregloMostradas){
+            arregloMostradas[i].seMuestra=true
+        }
+    }
+    renderizarBoard(board)
 }
 
 const mensajeGanaste =() =>{
-    if(tarjetasMostradas == 24){
+    if(tarjetasMostradas == 12){
         alert("ganaste")
     }
 }
