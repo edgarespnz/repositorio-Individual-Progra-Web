@@ -120,7 +120,7 @@ const compararCasillas =()=>{
             renderizarBoard(board)
         }
     estaMostrada()
-    setTimeout(mensajeGanaste,100)
+    setTimeout(mensajeGanaste,150)
 }
 
 const estaMostrada = () =>{
